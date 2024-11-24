@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo" class="page">
+    <ActionBar title="Dashboard" class="action-bar">
+        <ActionItem tap="{{ onSettings }}" ios.position="right" android.position="actionBar">
+            <Label text="&#xf013;" class="fas" />
+        </ActionItem>
+    </ActionBar>
+
+    <TabView selectedIndex="{{ selectedTab }}" class="tab-view">
+        <!-- Dashboard Tab -->
+        <TabViewItem title="Dashboard" iconSource="font://&#xf015;" class="fas">
+            <GridLayout rows="auto, auto, *">
+                <StackLayout row="0" class="stats-container p-4">
+                    <Label text="Today's Progress" class="h2" />
+                    <GridLayout columns="*, *, *" class="stats-grid">
+                        <StackLayout col="0" class="stat-item">
+                            <Label text="{{ calories }}" class="stat-value" />
+                            <Label text="Calories" class="stat-label" />
+                        </StackLayout>
+                        <StackLayout col="1" class="stat-item">
+                            <Label text="{{ steps }}" class="stat-value" />
+                            <Label text="Steps" class="stat-label" />
+                        </StackLayout>
+                        <StackLayout col="2" class="stat-item">
+                            <Label text="{{ workouts }}" class="stat-value" />
+                            <Label text="Workouts" class="stat-label" />
+                        </StackLayout>
+                    </GridLayout>
+                </StackLayout>
+
+                <GridLayout row="1" class="chart-container">
+                    <!-- Weekly Progress Chart -->
+                </GridLayout>
+
+                <ScrollView row="2">
+                    <StackLayout class="p-4">
+                        <Label text="Today's Workouts" class="h3 mb-2" />
+                        <ListView items="{{ todayWorkouts }}" class="workout-list">
+                            <ListView.itemTemplate>
+                                <GridLayout columns="auto, *, auto" class="workout-item p-2">
+                                    <Label col="0" text="{{ icon }}" class="workout-icon fas" />
+                                    <StackLayout col="1">
+                                        <Label text="{{ name }}" class="workout-name" />
+                                        <Label text="{{ duration }}" class="workout-duration" />
+                                    </StackLayout>
+                                    <Label col="2" text="&#xf054;" class="fas" />
+                                </GridLayout>
+                            </ListView.itemTemplate>
+                        </ListView>
+                    </StackLayout>
+                </ScrollView>
+            </GridLayout>
+        </TabViewItem>
+
+        <!-- Workouts Tab -->
+        <TabViewItem title="Workouts" iconSource="font://&#xf44b;" class="fas">
+            <ScrollView>
+                <StackLayout class="p-4">
+                    <Button text="Start New Workout" tap="{{ onStartWorkout }}" class="btn btn-primary mb-4" />
+                    
+                    <Label text="Workout Programs" class="h3 mb-2" />
+                    <ListView items="{{ workoutPrograms }}" class="program-list">
+                        <ListView.itemTemplate>
+                            <GridLayout columns="auto, *, auto" class="program-item p-3">
+                                <Image col="0" src="{{ image }}" class="program-image" />
+                                <StackLayout col="1" class="ml-2">
+                                    <Label text="{{ name }}" class="program-name" />
+                                    <Label text="{{ description }}" class="program-description" textWrap="true" />
+                                </StackLayout>
+                                <Label col="2" text="&#xf054;" class="fas" />
+                            </GridLayout>
+                        </ListView.itemTemplate>
+                    </ListView>
+                </StackLayout>
+            </ScrollView>
+        </TabViewItem>
+
+        <!-- Nutrition Tab -->
+        <TabViewItem title="Nutrition" iconSource="font://&#xf2e7;" class="fas">
+            <ScrollView>
+                <StackLayout class="p-4">
+                    <Button text="Log Meal" tap="{{ onLogMeal }}" class="btn btn-primary mb-4" />
+                    
+                    <GridLayout columns="*, *" rows="auto" class="nutrition-stats mb-4">
+                        <StackLayout col="0" class="nutrition-stat">
+                            <Label text="{{ caloriesConsumed }}" class="stat-value" />
+                            <Label text="Calories Consumed" class="stat-label" />
+                        </StackLayout>
+                        <StackLayout col="1" class="nutrition-stat">
+                            <Label text="{{ caloriesRemaining }}" class="stat-value" />
+                            <Label text="Calories Remaining" class="stat-label" />
+                        </StackLayout>
+                    </GridLayout>
+
+                    <Label text="Today's Meals" class="h3 mb-2" />
+                    <ListView items="{{ todayMeals }}" class="meal-list">
+                        <ListView.itemTemplate>
+                            <GridLayout columns="auto, *, auto" class="meal-item p-2">
+                                <Label col="0" text="{{ icon }}" class="meal-icon fas" />
+                                <StackLayout col="1">
+                                    <Label text="{{ name }}" class="meal-name" />
+                                    <Label text="{{ calories }} calories" class="meal-calories" />
+                                </StackLayout>
+                                <Label col="2" text="&#xf054;" class="fas" />
+                            </GridLayout>
+                        </ListView.itemTemplate>
+                    </ListView>
+                </StackLayout>
+            </ScrollView>
+        </TabViewItem>
+
+        <!-- Profile Tab -->
+        <TabViewItem title="Profile" iconSource="font://&#xf007;" class="fas">
+            <ScrollView>
+                <StackLayout class="p-4">
+                    <Image src="{{ profileImage }}" class="profile-image mb-4" />
+                    <Label text="{{ userName }}" class="h2 text-center mb-4" />
+
+                    <GridLayout columns="*, *" rows="auto" class="profile-stats mb-4">
+                        <StackLayout col="0" class="profile-stat">
+                            <Label text="{{ weight }}" class="stat-value" />
+                            <Label text="Current Weight" class="stat-label" />
+                        </StackLayout>
+                        <StackLayout col="1" class="profile-stat">
+                            <Label text="{{ targetWeight }}" class="stat-value" />
+                            <Label text="Target Weight" class="stat-label" />
+                        </StackLayout>
+                    </GridLayout>
+
+                    <StackLayout class="profile-menu">
+                        <GridLayout columns="auto, *, auto" class="menu-item" tap="{{ onEditProfile }}">
+                            <Label col="0" text="&#xf044;" class="fas" />
+                            <Label col="1" text="Edit Profile" />
+                            <Label col="2" text="&#xf054;" class="fas" />
+                        </GridLayout>
+                        <GridLayout columns="auto, *, auto" class="menu-item" tap="{{ onGoals }}">
+                            <Label col="0" text="&#xf091;" class="fas" />
+                            <Label col="1" text="Goals" />
+                            <Label col="2" text="&#xf054;" class="fas" />
+                        </GridLayout>
+                        <GridLayout columns="auto, *, auto" class="menu-item" tap="{{ onSettings }}">
+                            <Label col="0" text="&#xf013;" class="fas" />
+                            <Label col="1" text="Settings" />
+                            <Label col="2" text="&#xf054;" class="fas" />
+                        </GridLayout>
+                        <GridLayout columns="auto, *, auto" class="menu-item" tap="{{ onLogout }}">
+                            <Label col="0" text="&#xf2f5;" class="fas" />
+                            <Label col="1" text="Logout" />
+                            <Label col="2" text="&#xf054;" class="fas" />
+                        </GridLayout>
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+        </TabViewItem>
+    </TabView>
+</Page>
